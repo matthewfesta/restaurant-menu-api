@@ -1,84 +1,145 @@
-Restaurant Menu API
+# Restaurant Menu GraphQL API
 
-For this test, we would like you to make an API to provide data to a restaurant menu application. This API should use nodeJS and GraphGL. It should include a README with instructions to run this API locally. We would love to see automated tests. Overall, we're trying to see your skill in node development. The rules beyond this are relatively simple. You can use as much or as little of the technology above as you'd like, but please use node. We are trying to gauge how you think about a problem and the cleanliness of your code. You may spend as much or as little time as you'd like on the project, however we do not ask for any more than an hour or 2. You may use any resources you'd like (google, stackoverflow, books, articles) but please make the code your own.
+A Node.js and GraphQL API that serves restaurant menu data.
 
-When you are done, please upload the resulting node application to a public GitHub repo. Please include a README with instructions to run your application locally. Feel free to add any notes on special procedures to run the code, and any notes about what you did and why.
+## Prerequisites
 
-Below you will find unstructured menu data for you to use:
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
-Web Restaurant
+## Quick Start
 
--APPETIZERS-
-Iceberg Wedge Salad with House Cured Bacon – tomato salsa gorgonzola $7.50
-Sautéed Shredded Brussels Sprouts – bacon hazelnuts gorgonzola $6.95
-Kale Salad – parmesan crisp corn radish garlic-lemon vinaigrette $7.50
-Pecan Crusted Utah Goat Cheese with Basil-Mint Pesto - grilled tomato salsa crostini $6.95
-Chicken and Cabbage Eggrolls hot & sour dipping sauce $6.95
- 
--ENTREES-
-Farfalle Pasta with Braised Pork in Tomato Cream – capers butternut squash kale $12.95
-Stout Braised Bratwusrt - horseradish mashed potatoes roasted root veggies grilled onion $13.95
-Salmon & Crispy Tofu in Yellow Curry Sauce – vegetable sauté golden raisin chutney $15.95
-Sesame Shrimp – udon noodles ramen broth shiitake mushrooms bean sprouts scallions $13.95
- 
--SANDWICHES-
-Served with choice of house pasta salad, green salad, or fresh fruit. For an additional $1.50, you can “upgrade” (by substituting) to ½ pasta salad of the day, French onion soup or soup of the day.
- 
-COLD
-Choice of sourdough, whole wheat, or rye bread
-half sandwich $7.95
-full sandwich $9.25
-Turkey & Avocado – with tomato
-Pub Club – turkey, bacon. lettuce, tomato
-Rare Roast Beef & Swiss – sweet-hot mustard, lettuce, red onion
-Veggie – pepper jack, avocado, sprout, tomato
-  
-HOT
-Choice of whole wheat or cheese & onion bun
-Southwest Chicken Breast Grilled Onion, Poblano Pepper, Tomato, Lettuce, Jack Cheese 9.50
-Portobello Fresh Mozzarella Caramelized Onion, Roasted Pepper, Tomato, Field Greens, Basil Aioli 9.50
-Chipotle BBQ Pork Sandwich with Pickled Jalapeño Slaw $9.50
-Bacon Burger* Swiss, Lettuce, Tomato $9.25
-Mexi Burger* Pepper Relish, Pepper Jack, Tomato, Lettuce, Guacamole $9.25
-Herb Marinated Top Sirloin* Crimini Mushrooms, Caramelized Onion, Gorgonzola, Basil Aioli, Served Open Faced on Fococcia $10.95
-Roast Beef with Ancho Au Jus Jack Cheese, Grilled Onions, Served on Crumb Bros. Baguette $9.75
-Blackened Catfish Creole Peppers & Onions, Fresh Herb Aioli, Served on house made Sourdough $9.75
- 
--SOUP & SALAD COMBOS-
-French Onion or Soup of the Day $4.95
-French Onion or Soup of the Day Combos
-with small green salad, fresh fruit or house pasta $7.25
-with half pasta of the day $8.75  
- 
--FAJITAS-
-Served with red rice, black beans, grilled tomato salad, choice of corn or flour tortillas $10.95
-Chicken Onions, Poblano and Bell Peppers, Guacamole, Two Salsas
-Sirloin Steak, Onions, Poblano and Bell Peppers, Carrots, Onion, Guacamole, Two Salsas
- 
--TACOS-
-Served with red rice, black beans, corn & romaine salad, tortilla chips $9.95
-Beer Battered Fish with Jalapeño Remoulade, Roasted Salsa, Cabbage 
-Carne Asada (marinated sirloin) with Guacamole, Tomatillo Salsa
-Citrus Marinated Chicken with Guacamole, Tomatillo Salsa
-Grilled Veggie with Zucchini, Yellow Squash, Bell Peppers, Onion, Guacamole, Tomatillo Salsa
- 
--ENCHILADAS-
-with Southwestern Succotash, Black Beans with Chipotle Crema
-Choice of Beef, Chicken, Cheese or Veggie
-uno $8.50
-dos $9.95
-tres $11.50
- 
-Chili Relleno Stuffed with Jack Cheese & Corn Glazed Yam, Chayote Squash Succotash, Red Chili Sauce 9.95
-Pepita Crusted Salmon with Chipotle Glaze – chevre whipped yams, jicama slaw, tomatillo sauce $10.95
- 
--QUICHE-
-Bacon, Swiss, Mushroom, Zucchini and Mushroom Quiche Choice of Fresh Fruit or Green Salad $8.95
- 
--GREEN SALADS-
-Grilled Red Trout Lentils, Tomatoes, Cukes, Green Beans, Red Bells, Almonds, Sundried Tomato Vinaigrette $10.95
-Smoked Turkey Cheese Tortellini, Bacon, Tomato, Cucumber, Egg, Black Bean-Corn Salsa, Avocado $9.95
-Asian Grilled Chicken Snow Peas, Carrot Slaw, Red Bells, Water Chestnut, Peanuts, Baby Corn, Cilantro, Cukes, Spicy Peanut Dressing $10.50
-Southwest Grilled Chicken Tomato, Guacamole, pepitas, Jicama, Corn & Black Bean Salsa, Orange Wedges, Spicy Citrus Vinaigrette $10.50
-Mediterranean Italian Sausage, Artichoke Hearts, Green Beans, Roma Tomato, Kalamatas, Red Onion, Cucumber, Croutons, Parmesan, Fresh Mozzarella, Gorgonzola Vinaigrette $9.95
-Grilled Salmon Artichoke tapenade, shredded kale, corn, radish, parmesan crisps $11.50
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd restaurant-menu-api
+
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the server:
+
+```bash
+npm start
+```
+
+The server will be running at `http://localhost:4000`
+
+## Testing
+
+Run the test suite:
+
+```bash
+npm test
+```
+
+## API Documentation
+
+### GraphQL Endpoint
+`POST http://localhost:4000/`
+
+### Available Queries
+
+1. Get all menu items:
+
+```graphql
+query {
+    AllMenuItems {
+        id
+        name
+        type
+        description
+        price
+    }
+}
+```
+
+2. Get menu items by type:
+
+```graphql
+query($type: String!) {
+    MenuItemsByType(type: $type) {
+        id
+        name
+        type
+        description
+        price
+    }
+}
+```
+
+3. Get a specific menu item:
+
+```graphql
+query($id: ID!) {
+    MenuItem(id: $id) {
+        id
+        name
+        type
+        description
+        price
+    }
+}
+```
+
+4. Get available menu types:
+
+```graphql
+query {
+    MenuTypes
+}
+```
+
+### Available Menu Types
+- APPETIZERS
+- ENTREES
+- SANDWICHES_HOT
+- SANDWICHES_COLD
+- TACOS
+- GREEN_SALADS
+- FAJITAS
+- ENCHILADAS
+- QUICHE
+- SOUP_AND_SALAD
+
+## Implementation Notes
+
+- Built with Node.js and Apollo Server for GraphQL
+- Uses in-memory database for menu items
+- Includes input validation and error handling
+- Test suite using Jest and Supertest
+- Modular architecture with separate models, queries, and resolvers
+
+## Error Handling
+
+The API returns structured errors with appropriate status codes:
+- 400: Validation errors (invalid input)
+- 404: Resource not found
+- 500: Internal server error
+
+## Future Improvements
+
+- Add persistence layer with a proper database
+- Implement mutations for menu management
+- Add authentication and authorization
+- Add rate limiting
+- Expand test coverage
+
+This README provides:
+1. Clear setup instructions
+2. API documentation with example queries
+3. Implementation notes
+4. Error handling information
+5. Future improvement suggestions
+
+The implementation details reference the following files:
+- Package.json (lines 1-26)
+- App.js (lines 1-14)
+- Menu/index.js (lines 1-48)
+- Menu/model/menu.model.js (lines 1-30)
