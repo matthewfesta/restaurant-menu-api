@@ -4,6 +4,7 @@
   "description": "Restaurant Menu API",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "jest"
   },
   "keywords": [],
