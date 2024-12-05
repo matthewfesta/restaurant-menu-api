@@ -1,4 +1,5 @@
 import request from 'supertest';
+import db from '../../db/db.js';
 
 const url = 'http://localhost:4000/';
 
@@ -18,15 +19,12 @@ describe('Get all menu items', () => {
     }
 
     it('should return all menu items', async () => {
-        request(url)
-            .post('?')
+        const response = await request(url)
+            .post('/')
             .send(postData)
-            .expect(200)
-            .end((error, response) => {
-                if (error) console.error(error);
-                const res = JSON.parse(response.text);
-
-                expect(res.data.AllMenuItems).toEqual(db.menu);
-            });
+            .expect(200);
+            
+        const res = JSON.parse(response.text);
+        expect(res.data.AllMenuItems).toEqual(db.menu);
     });
 });
