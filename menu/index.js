@@ -25,6 +25,11 @@ export const typeDefs = `
     type Query {
         MenuItemsByType(type: String!): [MenuItem!]!
     }
+
+    # The "MenuTypes" query returns a list of all available menu types.
+    type Query {
+        MenuTypes: [String!]!
+    }
 `;
 
 export const resolvers = {
@@ -32,5 +37,12 @@ export const resolvers = {
         AllMenuItems: async () => await listAllMenuItems(),
         MenuItemsByType: async (_, { type }) => await listMenuItemsByType(type),
         MenuItem: async (_, { id }) => await getMenuItem(id),
+        MenuTypes: async () => {
+            const types = new Set();
+            for (const item of db.menu) {
+                types.add(item.type);
+            }
+            return Array.from(types);
+        },
     },
 };
