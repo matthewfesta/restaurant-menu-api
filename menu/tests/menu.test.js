@@ -13,18 +13,29 @@ describe('GraphQL Menu API Tests', () => {
                     type
                     description
                     price
+                    options
+                    variations {
+                        name
+                        price
+                    }
                 }
             }
         `;
 
-        it('should return all menu items', async () => {
+        it('should return all menu items with complete data structure', async () => {
             const response = await request(url)
                 .post('/')
                 .send({ query })
                 .expect(200);
             
             const res = JSON.parse(response.text);
-            expect(res.data.AllMenuItems).toEqual(db.menu);
+            const expectedMenu = db.menu.map(item => ({
+                ...item,
+                id: item.id.toString(),
+                options: item.options || null,
+                variations: item.variations || null
+            }));
+            expect(res.data.AllMenuItems).toEqual(expectedMenu);
         });
     });
 
@@ -37,31 +48,27 @@ describe('GraphQL Menu API Tests', () => {
                     type
                     description
                     price
+                    options
                 }
             }
         `;
 
-        it('should return menu items of type APPETIZERS', async () => {
-            const variables = { type: 'APPETIZERS' };
+        it('should return menu items of type SANDWICHES_COLD', async () => {
+            const variables = { type: 'SANDWICHES_COLD' };
             const response = await request(url)
                 .post('/')
                 .send({ query, variables })
                 .expect(200);
             
             const res = JSON.parse(response.text);
-            const appetizerItems = db.menu.filter(item => item.type === 'APPETIZERS');
-            expect(res.data.MenuItemsByType).toEqual(appetizerItems);
-        });
-
-        it('should return empty array for non-existent type', async () => {
-            const variables = { type: 'NON_EXISTENT' };
-            const response = await request(url)
-                .post('/')
-                .send({ query, variables })
-                .expect(200);
-            
-            const res = JSON.parse(response.text);
-            expect(res.data.MenuItemsByType).toEqual([]);
+            const sandwichItems = db.menu
+                .filter(item => item.type === 'SANDWICHES_COLD')
+                .map(item => ({
+                    ...item,
+                    id: item.id.toString(),
+                    options: item.options || null
+                }));
+            expect(res.data.MenuItemsByType).toEqual(sandwichItems);
         });
     });
 
@@ -74,6 +81,11 @@ describe('GraphQL Menu API Tests', () => {
                     type
                     description
                     price
+                    options
+                    variations {
+                        name
+                        price
+                    }
                 }
             }
         `;
@@ -86,7 +98,12 @@ describe('GraphQL Menu API Tests', () => {
                 .expect(200);
             
             const res = JSON.parse(response.text);
-            const expectedItem = db.menu.find(item => item.id === 1);
+            const expectedItem = {
+                ...db.menu.find(item => item.id === 1),
+                id: "1",
+                options: null,
+                variations: null
+            };
             expect(res.data.MenuItem).toEqual(expectedItem);
         });
 

@@ -1,4 +1,5 @@
-import { listAllMenuItems,listMenuItemsByType,getMenuItem } from './queries/menu.js';
+import { listAllMenuItems,listMenuItemsByType,getMenuItem } from './queries/menu.queries.js';
+import db from '../db/db.js';
 
 export const typeDefs = `
     # GraphQL
@@ -12,6 +13,13 @@ export const typeDefs = `
         type: String!
         description: String!
         price: Float!
+        options: [String]
+        variations: [PriceVariation]
+    }
+
+    type PriceVariation {
+        name: String!
+        price: Float!
     }
 
     # QUERY TYPES
@@ -19,25 +27,18 @@ export const typeDefs = `
     # The "AllMenuItems" query returns a list of all menu items.
     type Query {
         AllMenuItems: [MenuItem!]!
-    }
-
-    # The "MenuItemsByType" query returns a list of menu items by type.
-    type Query {
-        MenuItemsByType(type: String!): [MenuItem!]!
-    }
-
-    # The "MenuTypes" query returns a list of all available menu types.
-    type Query {
+        MenuItemsByType(type: String!): [MenuItem!]
+        MenuItem(id: ID!): MenuItem
         MenuTypes: [String!]!
     }
 `;
 
 export const resolvers = {
     Query: {
-        AllMenuItems: async () => await listAllMenuItems(),
-        MenuItemsByType: async (_, { type }) => await listMenuItemsByType(type),
-        MenuItem: async (_, { id }) => await getMenuItem(id),
-        MenuTypes: async () => {
+        AllMenuItems: () => listAllMenuItems(),
+        MenuItemsByType: (_, { type }) => listMenuItemsByType(type),
+        MenuItem: (_, { id }) => getMenuItem(id),
+        MenuTypes: () => {
             const types = new Set();
             for (const item of db.menu) {
                 types.add(item.type);

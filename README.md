@@ -39,6 +39,48 @@ Run the test suite:
 npm test
 ```
 
+## Manual Testing with Postman
+
+1. Download and install [Postman](https://www.postman.com/downloads/)
+
+2. Create a new request:
+   - Method: POST
+   - URL: http://localhost:4000/
+   - Headers: Content-Type: application/json
+
+3. Example requests:
+
+   Get all menu items:
+   ```json
+   {
+     "query": "query { AllMenuItems { id name type description price } }"
+   }
+   ```
+
+   Get items by type:
+   ```json
+   {
+     "query": "query($type: String!) { MenuItemsByType(type: $type) { id name description price } }",
+     "variables": {
+       "type": "APPETIZERS"
+     }
+   }
+   ```
+
+   Get single item:
+   ```json
+   {
+     "query": "query($id: ID!) { MenuItem(id: $id) { id name type description price } }",
+     "variables": {
+       "id": "1"
+     }
+   }
+   ```
+
+4. Click "Send" to execute the query
+
+The response will be in JSON format with your requested menu data.
+
 ## API Documentation
 
 ### GraphQL Endpoint
